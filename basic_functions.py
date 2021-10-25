@@ -1,9 +1,15 @@
 from decimal import Decimal as number
 from settings import Settings
 class basic_functions:
+    def OutputConvert(self, Number):
+        Number = str(round(Number, int(Settings["FunctionsRoundTo"])))
+        if Settings["NumberType"] == "Float":
+            return float(Number)
+        if Settings["NumberType"] == "Decimal":
+            return number(Number)
     def function(self, function):
         try:
-            return eval(function)
+            return self.OutputConvert(eval(function))
         except ZeroDivisionError:
             return "Expected: ZeroDivizion (function)"
         except Exception:

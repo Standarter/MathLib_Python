@@ -41,4 +41,3 @@ class ProgramSettings:
 Settings = ProgramSettings()
 Settings.SettingsInit()
 Settings = Settings.settings
-pprint(Settings, width=1)
