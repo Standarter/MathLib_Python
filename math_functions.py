@@ -1,17 +1,21 @@
 from settings import Settings
 from decimal import Decimal as number
+from analize_functions import analize_functions
+import all_functions
+import log
 class math_functions:
-    sin = 0
-    cos = 0
-    tg = 0
-    ctg = 0
     def OutputConvert(self, Number):
         Number = str(round(Number, int(Settings["FunctionsRoundTo"])))
         if Settings["NumberType"] == "Float":
             return float(Number)
         if Settings["NumberType"] == "Decimal":
             return number(Number)
+    def RadianInputConvert(self, x):
+        #print(self.OutputConvert((x % all_functions.pi) + 2*all_functions.pi))
+        return self.OutputConvert((x % all_functions.pi) + 2*all_functions.pi)
     def __init__(self):
+        all_functions.pi = 3.1415926535
+        all_functions.e = 2.7182818284
         if Settings["TrigMethod"] == "math":
             import math
             def sin(x):
@@ -22,10 +26,14 @@ class math_functions:
                 return self.OutputConvert(math.sin(x)/math.cos(x))
             def ctg(x):
                 return self.OutputConvert(math.cos(x)/math.sin(x))
-            self.sin = sin
-            self.cos = cos
-            self.tg = tg
-            self.ctg = ctg
+            all_functions.sin = sin
+            log.log("loaded", "sin (math)")
+            all_functions.cos = cos
+            log.log("loaded", "cos (math)")
+            all_functions.tg = tg
+            log.log("loaded", "tg (math)")
+            all_functions.ctg = ctg
+            log.log("loaded", "ctg (math)")
         if Settings["TrigMethod"] == "numpy":
             import numpy
             def sin(x):
@@ -36,7 +44,51 @@ class math_functions:
                 return self.OutputConvert(numpy.sin(x)/numpy.cos(x))
             def ctg(x):
                 return self.OutputConvert(numpy.cos(x)/numpy.sin(x))
-            self.sin = sin
-            self.cos = cos
-            self.tg = tg
-            self.ctg = ctg
+            all_functions.sin = sin
+            log.log("loaded", "sin (numpy)")
+            all_functions.cos = cos
+            log.log("loaded", "cos (numpy)")
+            all_functions.tg = tg
+            log.log("loaded", "tg (numpy)")
+            all_functions.ctg = ctg
+            log.log("loaded", "ctg (numpy)")
+        if Settings["TrigMethod"] == "taylor":
+            analize = analize_functions()
+            def sin(x, iterations = 10):
+                formula = """
+                ( (-1)**(n) * x**(2*n+1) ) /
+                ( factorial(2*n + 1) )
+                """
+                return self.OutputConvert(analize.Summa(formula, 0, iterations, variables_addictional={"x": self.RadianInputConvert(x)}))
+            def cos(x, iterations = 10):
+                formula = """
+                ( (-1)**(n) * x**(2*n) ) /
+                ( factorial(2*n) )
+                """
+                return self.OutputConvert(analize.Summa(formula, 0, iterations, variables_addictional={"x": self.RadianInputConvert(x)}))
+            def tg(x, iterations = 10):
+                return self.OutputConvert(sin(x, iterations)/cos(x, iterations))
+            def ctg(x, iterations = 10):
+                return self.OutputConvert(cos(x, iterations)/sin(x, iterations))
+            all_functions.sin = sin
+            log.log("loaded", "sin (taylor)")
+            all_functions.cos = cos
+            log.log("loaded", "cos (taylor)")
+            all_functions.tg = tg
+            log.log("loaded", "tg (taylor) (slow)")
+            all_functions.ctg = ctg
+            log.log("loaded", "ctg (taylor) (slow)")
+        if Settings["FactorialMethod"] == "standart":
+            def factorial(x):
+                if x > 0:
+                    #log.log("X", x)
+                    result = 1
+                    for i in range(1, int(x) + 1, 1):
+                        #log.log("i", i)
+                        result *= i
+                        #log.log("result", result)
+                    return self.OutputConvert(result)
+                if x == 0:
+                    return self.OutputConvert(1)
+            all_functions.factorial = factorial
+            #log.log("loaded", "factorial (standart)")

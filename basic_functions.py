@@ -1,5 +1,7 @@
 from decimal import Decimal as number
 from settings import Settings
+import all_functions
+import log
 class basic_functions:
     def OutputConvert(self, Number):
         Number = str(round(Number, int(Settings["FunctionsRoundTo"])))
@@ -8,12 +10,15 @@ class basic_functions:
         if Settings["NumberType"] == "Decimal":
             return number(Number)
     def function(self, function):
-        try:
-            return self.OutputConvert(eval(function))
-        except ZeroDivisionError:
-            return "Expected: ZeroDivizion (function)"
-        except Exception:
-            return "Expected: Error (function)"
+        #Addictional Functions#
+        factorial = all_functions.factorial
+        #######################
+        function = self.function_cleaner(function)
+        #log.log("function", function)
+        return self.OutputConvert(eval(function))
+            
+    def function_cleaner(self, function: str):
+        return function.replace("\n", "").replace(" ", "")
     def variable_replace(self, STRING: str, FROM: str, TO: str):
         try:
             if Settings["NumberType"] == "Decimal":
@@ -25,4 +30,5 @@ class basic_functions:
     def solve_function(self, function, variables: dict):
         for key in variables.keys():
             function = self.variable_replace(function, key, variables[key])
+        #log.log("function", function)
         return self.function(function)
