@@ -13,5 +13,5 @@ FunctionsRoundTo = 5
 # 3) stirling
 FactorialMethod = standart
 # Do logs?
-Logs = false
+Logs = true
 LoggingLevel = 1

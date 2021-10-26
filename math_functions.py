@@ -27,13 +27,13 @@ class math_functions:
             def ctg(x):
                 return self.OutputConvert(math.cos(x)/math.sin(x))
             all_functions.sin = sin
-            log.log("loaded", "sin (math)")
+            log.log("loaded", "sin (math)", level=3)
             all_functions.cos = cos
-            log.log("loaded", "cos (math)")
+            log.log("loaded", "cos (math)", level=3)
             all_functions.tg = tg
-            log.log("loaded", "tg (math)")
+            log.log("loaded", "tg (math)", level=3)
             all_functions.ctg = ctg
-            log.log("loaded", "ctg (math)")
+            log.log("loaded", "ctg (math)", level=3)
         if Settings["TrigMethod"] == "numpy":
             import numpy
             def sin(x):
@@ -45,13 +45,13 @@ class math_functions:
             def ctg(x):
                 return self.OutputConvert(numpy.cos(x)/numpy.sin(x))
             all_functions.sin = sin
-            log.log("loaded", "sin (numpy)")
+            log.log("loaded", "sin (numpy)", level=3)
             all_functions.cos = cos
-            log.log("loaded", "cos (numpy)")
+            log.log("loaded", "cos (numpy)", level=3)
             all_functions.tg = tg
-            log.log("loaded", "tg (numpy)")
+            log.log("loaded", "tg (numpy)", level=3)
             all_functions.ctg = ctg
-            log.log("loaded", "ctg (numpy)")
+            log.log("loaded", "ctg (numpy)", level=3)
         if Settings["TrigMethod"] == "taylor":
             analize = analize_functions()
             def sin(x, iterations = 10):
@@ -71,13 +71,13 @@ class math_functions:
             def ctg(x, iterations = 10):
                 return self.OutputConvert(cos(x, iterations)/sin(x, iterations))
             all_functions.sin = sin
-            log.log("loaded", "sin (taylor)")
+            log.log("loaded", "sin (taylor)", level=3)
             all_functions.cos = cos
-            log.log("loaded", "cos (taylor)")
+            log.log("loaded", "cos (taylor)", level=3)
             all_functions.tg = tg
-            log.log("loaded", "tg (taylor) (slow)")
+            log.log("loaded", "tg (taylor) (slow)", level=3)
             all_functions.ctg = ctg
-            log.log("loaded", "ctg (taylor) (slow)")
+            log.log("loaded", "ctg (taylor) (slow)", level=3)
         if Settings["FactorialMethod"] == "standart":
             def factorial(x):
                 if x > 0:
@@ -91,4 +91,4 @@ class math_functions:
                 if x == 0:
                     return self.OutputConvert(1)
             all_functions.factorial = factorial
-            #log.log("loaded", "factorial (standart)")
+            log.log("loaded", "factorial (standart)", level=3)
