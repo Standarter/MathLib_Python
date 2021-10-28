@@ -12,6 +12,7 @@ FunctionsRoundTo = 5
 # 2) math
 # 3) stirling
 FactorialMethod = standart
+LogMethod = standart
 # Do logs?
 Logs = true
 LoggingLevel = 1
