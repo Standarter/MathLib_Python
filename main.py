@@ -1,24 +1,18 @@
-from decimal import Decimal as number
-import basic_functions
-import math_functions
-import analize_functions
-import array_functions
-import numbers_method
-import settings
+from basic_functions import basic_functions
+from math_basic import math_basic
+from math_analisys import math_analisys
 import all_functions
-import log
-import math
+bf = basic_functions()
+mb = math_basic()
+ma = math_analisys()
 
-settings_initialize = settings.ProgramSettings()
-math_initialize = math_functions.math_functions()
-analize_initialize = analize_functions.analize_functions()
-array_initialize = array_functions.array_functions()
-numbers_method_initialize = numbers_method.numbers_method()
+start = False
 
-#print(analize_initialize.DifferencialX("x**2", 2))
-#print(analize_initialize.DerivedX("x**2", 2))
-temp = numbers_method_initialize.newton_methodX("sin(x)-number(1)", 1, iterations=100)
-print(temp)
-print(math.degrees(temp))
-print(all_functions.sin(temp))
-#print(all_functions.sin(all_functions.pi/2))
+print(mb.sin(all_functions.pi/2, 26))
+print(mb.cos(all_functions.pi/2, 26))
+
+#if start == True:
+#    while True:
+#        test = input("Enter command: ")
+#        temp1 = bf.default_function(test, variables={"x": 0.1})
+#        print(temp1)
