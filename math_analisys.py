@@ -8,6 +8,7 @@ class math_analisys:
     ############################
     def __init__(self):
         self.set_dx()
+        settings.dx = self.dx
         all_functions.diff = self.diff
     def set_dx(self, roundto=settings.default_function_round):
         one = self.base_math.to_decimal_number("1")
